@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SURVEY_WEB
 성결대 설문조사 사이트
 
@@ -26,3 +27,7 @@
  >2. git commit -m "내용"   
  >3. git push origin master   
  
+=======
+# SungkyulE
+웹 및 앱을 위한 컨텐츠 제작 기술 프로젝트
+>>>>>>> 757daee1f4d1d2133549847a5f31ca4dbc0f5c7c

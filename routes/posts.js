@@ -3,8 +3,10 @@ var express  = require('express');
 var router = express.Router();
 var Post = require('../models/Post');
 var util = require('../util');
+var app = express();
 var Comment = require('../models/Comment');
-
+var http = require('http').Server(app); 
+var io = require('socket.io')(http);    
 // Index 
 var ClevisURL = {
   // URL Pattern
@@ -232,7 +234,14 @@ router.get('/:boardNum/:id', function(req, res){
       console.log('err: ', err);
       return res.json(err);
     });
-    
+});
+
+router.get('/:boardNum/:id/chat', util.isLoggedin, function(req, res){
+  Post.findOne({_id:req.params.id}).populate({ path: 'author', select: 'stdid' }).exec((err, posts) => {
+    console.log(posts);
+    //req.flush('chat_user', posts.author.stdid);
+    res.render('posts/chat', {post:posts, boardNum:req.params.boardNum});
+  });
 });
 // isLoggedin 함수를 사용하여 로그인 할 경우에만 해당 기능 사용 가능
 // checkPermission 함수를 사용하여 본인이 작성한 글만 edit, update, delete가능
@@ -283,6 +292,7 @@ function checkPermission(req, res, next){   // 해당 게시물에 기록된 작
     next();   // 계속 진행
   });
 }
+
 
 function createSearchQuery(queries){ // 4
   var searchQuery = {};

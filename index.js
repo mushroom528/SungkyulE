@@ -8,6 +8,8 @@ var passport = require('./config/passport');
 var util = require('./util');
 var app = express();
 var bodyParser=require('body-parser');
+var http = require('http').Server(app); //1
+var io = require('socket.io')(http);
 
 // mongoDB 기본 설정 4개 꼭 해야함
 mongoose.set('useNewUrlParser', true);   
@@ -46,6 +48,22 @@ app.use('/users', require('./routes/users'));
 app.use('/posts', util.getPostQueryString, require('./routes/posts'));
 app.use('/comments', util.getPostQueryString, require('./routes/comments'));
 
-app.listen(3000, function(){ 
+var count=1;
+io.on('connection', function(socket){ //3
+  console.log('user connected: ', socket.id);  //3-1
+  var name = "user" + count++;                 //3-1
+  io.to(socket.id).emit('change name',name);   //3-1
+
+  socket.on('disconnect', function(){ //3-2
+    console.log('user disconnected: ', socket.id);
+  });
+
+  socket.on('send message', function(name,text){ //3-3
+    var msg = name + ' : ' + text;
+    console.log(msg);
+    io.emit('receive message', msg);
+  });
+});
+http.listen(3000, function(){ 
   console.log('server on!'); 
 });

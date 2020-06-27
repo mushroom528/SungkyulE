@@ -1,0 +1,65 @@
+<!-- client.html -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('../partials/head') %>
+        <style>
+            .chat_log{ width: 95%; height: 200px; }
+            .name{ width: 10%; }
+            .message{ width: 70%; }
+            .chat{ width: 10%; }
+          </style>
+    </head>
+    <body>
+        <%- include('../partials/nav') %>
+    <div class="container mb-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb p-1 pl-2 pr-2">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/posts/<%= boardNum %>"><% if(boardNum == 1){ %>
+              학교설문<% } else if(boardNum == 2) { %> 학생설문 <% } %></a></li>
+              <li class="breadcrumb-item"><a href="/posts/<%= boardNum %>/<%= post._id %>"><%= post.title %></a></li>
+              <li class="breadcrumb-item active" aria-current="page" ><%= post.title %> 채팅방</li>
+            </ol>
+          </nav>
+          <div class="card">
+            <h5 class="card-header p-2"style="background-color: #e3f2fd;"><%= post.title %> 채팅방 입니다!</h5>
+        </div>
+        <br>
+        <div class = "input-group mb-3">
+            <textarea id="chatLog" class="chat_log" readonly></textarea>
+        </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <input class="input-group-text" id="name" class="name" type="text" style="background-color: #e3f2fd;" readonly>
+            </div>
+            <input type="text" id="message" class="message" class="form-control" aria-label="Amount (to the nearest dollar)">
+            <div class="input-group-append">
+              <input class="input-group-text" type="submit" class="chat" value="보내기" style="background-color: #e3f2fd;"></input>
+            </div>
+          </div>
+
+          <div id="box" class="box">
+        </div>
+    
+    <script src="/socket.io/socket.io.js"></script> <!-- 1 -->
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var socket = io(); //1
+      $('#chat').on('submit', function(e){ //2
+        socket.emit('send message', $('#name').val(), $('#message').val());
+        $('#message').val('');
+        $('#message').focus();
+        e.preventDefault();
+      });
+      socket.on('receive message', function(msg){ //3
+        $('#chatLog').append(msg+'\n');
+        $('#chatLog').scrollTop($('#chatLog')[0].scrollHeight);
+      });
+      socket.on('change name', function(name){ //4
+        $('#name').val(name);
+      });
+    </script>
+  </body>
+</html>

@@ -14,7 +14,7 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false); 
 mongoose.set('useCreateIndex', true);    
 mongoose.set('useUnifiedTopology', true);
-mongoose.connect('mongodb+srv://ypper7340:tjsdlswkd12@cluster0-nlcl9.mongodb.net/test?retryWrites=true&w=majority'); // connect string으로 mongoDB랑 node 연결
+mongoose.connect('mongodb+srv://ypper7340:tjsdlswkd12@cluster0-nlcl9.mongodb.net/test2?retryWrites=true&w=majority'); // connect string으로 mongoDB랑 node 연결
 var db = mongoose.connection;
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));

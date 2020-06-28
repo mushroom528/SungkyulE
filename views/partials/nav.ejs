@@ -19,11 +19,11 @@
         <ul class="navbar-nav ml-auto">
           <% if(isAuthenticated){ %> <!-- 로그인 성공시 화면 -->
             <li class="nav-item"><a href="/users/<%= currentUser.stdid %>" class="nav-link">마이페이지</a></li>
-            <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+            <li class="nav-item"><a href="/logout" class="nav-link">로그아웃</a></li>
           
             <% } else { %>
-            <li class="nav-item"><a href="/users/new" class="nav-link">Sign Up</a></li>
-            <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+            <li class="nav-item"><a href="/users/new" class="nav-link">회원가입</a></li>
+            <li class="nav-item"><a href="/login" class="nav-link">로그인</a></li>
           <% } %>
 
           

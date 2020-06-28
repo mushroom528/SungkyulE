@@ -1,3 +1,9 @@
 body {
     font-family: 'Sunflower', sans-serif;
 }
+
+.right {
+    text-align: right;
+    color: blueviolet;
+    
+}

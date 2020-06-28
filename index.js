@@ -59,9 +59,10 @@ io.on('connection', function(socket){ //3
   });
 
   socket.on('send message', function(name,text){ //3-3
+    
     var msg = name + ' : ' + text;
-    console.log(msg);
-    io.emit('receive message', msg);
+    console.log('send',name);
+    io.emit('receive message', msg, name, text);
   });
 });
 http.listen(3000, function(){ 

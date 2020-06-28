@@ -28,13 +28,13 @@
         </div>
         <br>
         <div class = "input-group mb-3">
-            <textarea id="chatLog" class="chat_log" readonly></textarea>
+            <div id="chatLog" class="chat_log" style="overflow-y: scroll;" readonly></div>
         </div>
         <form id="chat">
         
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <input class="input-group-text" id="name" class="name" type="text" style="background-color: #e3f2fd;" readonly>
+              <input class="input-group-text" id="name" class="name" type="text" style="background-color: #e3f2fd;" value='<%= user %>' readonly>
             </div>
             <input type="text" id="message" class="message" class="form-control" aria-label="Amount (to the nearest dollar)">
             <div class="input-group-append">
@@ -55,13 +55,19 @@
         $('#message').focus();
         e.preventDefault();
       });
-      socket.on('receive message', function(msg){ //3
-        $('#chatLog').append(msg+'\n');
+      socket.on('receive message', function(msg, name, text){ //3
+        if(name == $('#name').val()){
+            $('#chatLog').append('<div style="text-align: right">'+text+'</div');
+        }
+        else {
+            $('#chatLog').append('<div>'+msg+'</div');
+        }
+        //$('#chatLog').append(msg+'\n');
         $('#chatLog').scrollTop($('#chatLog')[0].scrollHeight);
       });
-      socket.on('change name', function(name){ //4
+      /*socket.on('change name', function(name){ //4
         $('#name').val(name);
-      });
+      });*/
     </script>
   </body>
 </html>

@@ -238,9 +238,9 @@ router.get('/:boardNum/:id', function(req, res){
 
 router.get('/:boardNum/:id/chat', util.isLoggedin, function(req, res){
   Post.findOne({_id:req.params.id}).populate({ path: 'author', select: 'stdid' }).exec((err, posts) => {
-    console.log(posts);
+    console.log('123123',req.user);
     //req.flush('chat_user', posts.author.stdid);
-    res.render('posts/chat', {post:posts, boardNum:req.params.boardNum});
+    res.render('posts/chat', {post:posts, boardNum:req.params.boardNum, user: req.user.stdid});
   });
 });
 // isLoggedin 함수를 사용하여 로그인 할 경우에만 해당 기능 사용 가능

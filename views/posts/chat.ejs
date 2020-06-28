@@ -18,17 +18,17 @@
             <ol class="breadcrumb p-1 pl-2 pr-2">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
               <li class="breadcrumb-item"><a href="/posts/<%= boardNum %>"><% if(boardNum == 1){ %>
-              학교설문<% } else if(boardNum == 2) { %> 학생설문 <% } %></a></li>
+              공지사항<% } else if(boardNum == 2) { %> 함께해요 <% } %></a></li>
               <li class="breadcrumb-item"><a href="/posts/<%= boardNum %>/<%= post._id %>"><%= post.title %></a></li>
               <li class="breadcrumb-item active" aria-current="page" ><%= post.title %> 채팅방</li>
             </ol>
           </nav>
           <div class="card">
-            <h5 class="card-header p-2"style="background-color: #e3f2fd;"><%= post.title %> 채팅방 입니다!</h5>
+            <h5 class="card-header p-2"style="background-color: #e3f2fd;"><%= post.title %> 채팅방</h5>
         </div>
         <br>
         <div class = "input-group mb-3">
-            <div id="chatLog" class="chat_log" style="overflow-y: scroll;" readonly></div>
+            <div id="chatLog" class="chat_log" style="overflow-y: scroll; height:600px" readonly></div>
         </div>
         <form id="chat">
         
@@ -57,10 +57,12 @@
       });
       socket.on('receive message', function(msg, name, text){ //3
         if(name == $('#name').val()){
-            $('#chatLog').append('<div style="text-align: right">'+text+'</div');
+            $('#chatLog').append('<div class="bubble" style="background-color: #5664FD; float:right">'+text+'</div');
+            $('#chatLog').append('<div class="bubble">'+"-"+'</div');
         }
         else {
-            $('#chatLog').append('<div>'+msg+'</div');
+            $('#chatLog').append('<div class="bubble" style="background-color: #40F3ED; float:left" >'+msg+'</div');
+            $('#chatLog').append('<div class="bubble">'+"-"+'</div');
         }
         //$('#chatLog').append(msg+'\n');
         $('#chatLog').scrollTop($('#chatLog')[0].scrollHeight);

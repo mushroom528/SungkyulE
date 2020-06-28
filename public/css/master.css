@@ -1,5 +1,7 @@
 /* public/css/master.css */
 
+
+
 body {
     font-family: 'Open Sans', sans-serif;
   }
@@ -41,18 +43,36 @@ body {
   .post-index-tool input[type='text']{
     max-width: 130px;
   }
+  .bubble {
+    position: relative;
+    display: block;
+    margin-bottom: 5px;
+    margin-left :5px;
+    margin-right :5px;
+    color: #FFFFFF;
+    font-size: 1.2em;
+    padding: 10px 15px 10px 13px;
+    border-radius: 20px;
+  }
   .post-body,
   .comment-text {
     white-space: pre-line;
   }
+
  .comment-edit,
 .comment-edit-enabled .comment-show {
   display:none;
+
 }
 
 .comment-edit-enabled .comment-edit {
   display:inherit;
 }
+
+.empty{
+  font-size :1.5em;
+}
+
 
 .title {
   text-decoration: none;
